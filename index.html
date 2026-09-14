@@ -33,7 +33,8 @@ body{font-family:'Tajawal',sans-serif;background:#f0f4f9;color:#1a2535;direction
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
 .card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:16px;display:flex;align-items:center;gap:12px;box-shadow:0 3px 14px rgba(15,41,66,.06);transition:transform .15s,box-shadow .15s;cursor:pointer;text-decoration:none;color:inherit;}
 .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,41,66,.14);}
-.card-qr{width:64px;height:64px;flex-shrink:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fafafa;}
+.card-qr{width:72px;height:72px;flex-shrink:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff;padding:4px;}
+.card-qr img,.card-qr canvas,.card-qr table{width:100%!important;height:100%!important;image-rendering:pixelated;image-rendering:crisp-edges;}
 .card-info{flex:1;min-width:0;}
 .card-name{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .card-subj{font-size:10px;color:var(--muted);background:var(--light,#f0f4f9);display:inline-block;padding:2px 8px;border-radius:6px;}
@@ -98,6 +99,9 @@ body{font-family:'Tajawal',sans-serif;background:#f0f4f9;color:#1a2535;direction
     <div id="loading">⏳ جارٍ تحميل البيانات...</div>
     <div class="grid" id="grid" style="display:none"></div>
     <div class="empty" id="empty" style="display:none">لا توجد نتائج مطابقة</div>
+  </div>
+  <div style="text-align:center;padding:22px 20px 30px;color:var(--muted);font-size:10px;letter-spacing:.3px">
+    تصميم وتنفيذ: <span style="font-weight:800;color:var(--navy2)">Dr. Saliyah Alotaibi</span>
   </div>
 </div>
 
@@ -194,7 +198,8 @@ function render(){
         <div class="card-open">فتح الملف ↗</div>
       </div>`;
     grid.appendChild(a);
-    new QRCode(document.getElementById('qr-'+idx),{text:r.link,width:64,height:64,colorDark:'#0f2942',colorLight:'#ffffff'});
+    const qrRes=256; // دقة توليد عالية ثابتة — تبقى واضحة حتى لو كبّرتِ حجم الصندوق بالـCSS لاحقًا
+    new QRCode(document.getElementById('qr-'+idx),{text:r.link,width:qrRes,height:qrRes,colorDark:'#0f2942',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
   });
 }
 
